@@ -1,47 +1,47 @@
 endpoints:
-  - name: front-end
-    group: core
-    url: "https://twin.sh/health"
-    interval: 5m
+  - name: Nginx
+    group: QNAS
+    url: "https://celery.loafclan.org/"
+    interval: 1m
+    conditions:
+      - "[STATUS] == 403"
+      - "[RESPONSE_TIME] < 1000"
+
+  - name: Gatus Page
+    group: External
+    url: "https://celery.loafclan.org/status"
+    interval: 1m
     conditions:
       - "[STATUS] == 200"
-      - "[BODY].status == UP"
-      - "[RESPONSE_TIME] < 150"
+      - "[RESPONSE_TIME] < 1000"
 
-  - name: back-end
-    group: core
-    url: "https://example.org/"
-    interval: 5m
+  - name: Blockbust-Web
+    group: Blockbust™
+    url: "https://celery.loafclan.org/bbtm/"
+    interval: 1m
     conditions:
       - "[STATUS] == 200"
-      - "[CERTIFICATE_EXPIRATION] > 48h"
+      - "[RESPONSE_TIME] < 1000"
 
-  - name: monitoring
-    group: internal
-    url: "https://example.org/"
-    interval: 5m
+  - name: Blockbust-Glances
+    group: Blockbust™
+    url: "https://celery.loafclan.org/bbtm-glances/"
+    interval: 1m
     conditions:
-      - "[STATUS] == 200"
+      - "[STATUS] == 401"
+      - "[RESPONSE_TIME] < 1000"
 
-  - name: nas
-    group: internal
-    url: "https://example.org/"
-    interval: 5m
+  - name: QNAS-Glances
+    group: QNAS
+    url: "https://celery.loafclan.org/qnas-glances/"
+    interval: 1m
     conditions:
-      - "[STATUS] == 200"
+      - "[STATUS] == 401"
+      - "[RESPONSE_TIME] < 1000"
 
-  - name: example-dns-query
-    url: "8.8.8.8" # Address of the DNS server to use
-    interval: 5m
-    dns:
-      query-name: "example.com"
-      query-type: "A"
-    conditions:
-      - "[BODY] == 93.184.216.34"
-      - "[DNS_RCODE] == NOERROR"
-
-  - name: icmp-ping
-    url: "icmp://example.org"
+  - name: Syncplay
+    group: QNAS
+    url: "tcp://sync.loafclan.org:8999"
     interval: 1m
     conditions:
       - "[CONNECTED] == true"

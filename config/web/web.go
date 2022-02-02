@@ -10,7 +10,7 @@ const (
 	DefaultAddress = "0.0.0.0"
 
 	// DefaultPort is the default port the application will listen on
-	DefaultPort = 8080
+	DefaultPort = 10801
 )
 
 // Config is the structure which supports the configuration of the endpoint
